@@ -4,23 +4,35 @@ const cors = require('cors')
 
 // database
 const schema = require('./schema')
-const Root = require('./root')
-const Service = require('../service/Service.js')
-const resolver = new Root(new Service()).init()
+const Resolver = require('./Resolver')
+const Service = require('../service/ApiService.js')
+const initClient = require('../client/client')
+const contractAddress = process.env.SECRET_NFT_CONTRACT
 
-// Create an express server and a GraphQL endpoint
-const app = express()
-const corsOpts = {
-  origin: '*'
+const { graphqlUploadExpress } = require('graphql-upload')
+
+const main = async () => {
+  const client = await initClient()
+  const service = new Service(client, contractAddress)
+  const resolver = new Resolver(service).init()
+
+  // Create an express server and a GraphQL endpoint
+  const app = express()
+  const corsOpts = {
+    origin: '*'
+  }
+
+  app.use(cors(corsOpts))
+  app.use('/graphql',
+    graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
+    graphqlHTTP({
+      schema: schema,
+      rootValue: resolver,
+      graphiql: true
+    })
+  )
+
+  app.listen(4000, () => console.log('Express GraphQL Server Now Running On localhost:4000/graphql'))
 }
 
-app.use(cors(corsOpts))
-app.use('/graphql',
-  graphqlHTTP({
-    schema: schema,
-    rootValue: resolver,
-    graphiql: true
-  })
-)
-
-app.listen(4000, () => console.log('Express GraphQL Server Now Running On localhost:4000/graphql'))
+main()

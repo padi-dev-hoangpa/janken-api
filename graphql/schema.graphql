@@ -1,0 +1,39 @@
+scalar Upload
+##################################### QUERY ##########################################
+type Query {
+  fetchAllNFT: [NFT]
+  fetchUploads: [File]
+}
+
+##################################### MUTATION #######################################
+type Mutation {
+  postMintNFT(input: MintNFTInput): MintNFTResult
+  postUploadImage(file: Upload!): File
+}
+
+##################################### TYPE ###########################################
+type NFT {
+  owner: String!
+  image: String
+  name: String
+  description: String
+}
+
+type MintNFTResult {
+  txHash: String
+}
+
+##################################### INPUT ##########################################
+input MintNFTInput {
+  owner: String!
+  image: String
+  name: String
+  description: String
+}
+
+type File {
+  uri: String!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
