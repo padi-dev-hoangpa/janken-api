@@ -7,7 +7,7 @@ const main = async () => {
   const contractAddress = process.env.SECRET_NFT_CONTRACT
   const executor = new Executor(client, contractAddress)
 
-  const wasmPATH = '../../snip721.wasm'
+  const wasmPATH = './snip721.wasm'
   const initMsg = {
     /// name of token contract
     name: 'aaa',

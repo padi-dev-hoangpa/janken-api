@@ -7,7 +7,7 @@ const main = async () => {
   const contractAddress = process.env.SECRET_NFT_CONTRACT
   const executor = new Executor(client, contractAddress)
 
-  const wasmPATH = '../../janken.wasm'
+  const wasmPATH = './janken.wasm'
   const initMsg = {}
   const contractName = `My Janken${Math.ceil(Math.random() * 10000)}`
 
