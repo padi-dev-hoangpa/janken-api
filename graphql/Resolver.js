@@ -15,6 +15,7 @@ class Resolver {
     const resolvers = {
       Upload: GraphQLUpload,
       fetchAllNFT: this.service.fetchAllNFT,
+      fetchOwnerNFT: this.service.fetchOwnerNFT,
       postMintNFT: this.service.postMintNFT.bind(this.service),
       postUploadImage: this.service.postUploadImage.bind(this.service)
     }
