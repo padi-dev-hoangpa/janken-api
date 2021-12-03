@@ -59,6 +59,16 @@ class ApiService extends Executor {
       description: 'aaa'
     }]
   }
+
+  async fetchOwnerNFT(address) {
+    return [{
+      token_id: '1',
+      owner: 'aaa',
+      image: 'aaa',
+      name: 'aaa',
+      description: 'aaa'
+    }]
+  }
 }
 
 module.exports = ApiService
