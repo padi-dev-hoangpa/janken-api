@@ -10,13 +10,17 @@
     "lint": " eslint .",
     "lint": " eslint .",
     "db:setup-prod": "sequelize-cli db:migrate --env=production; sequelize-cli db:seed:all --env=production",
-    "d:snip721": "node cmd/deploy/deploy-janken.js",
-    "d:janken": "node cmd/deploy/deploy-nft.js",
+    "d:snip721": "node cmd/deploy/nft_contract.js",
+    "d:janken": "node cmd/deploy/janken_contract.js",
     "q:tokens": "node cmd/query/tokens.js",
-    "q:nftInfo": "node cmd/query/nftInfo.js",
-    "q:allNFTInfo": "node cmd/query/allNFTInfo.js",
-    "tx:mint-nft": "node cmd/tx/mint-nft.js",
-    "tx:transfer-nft": "node cmd/tx/transfer-nft.js"
+    "q:nft_info": "node cmd/query/nft_info.js",
+    "q:all_nft_info": "node cmd/query/all_nft_info.js",
+    "q:offer": "node cmd/query/offer.js",
+    "tx:mint_nft": "node cmd/tx/mint_nft.js",
+    "tx:transfer_nft": "node cmd/tx/transfer_nft.js",
+    "tx:make_offer": "node cmd/tx/make_offer.js",
+    "tx:accept_offer": "node cmd/tx/accept_offer.js",
+    "tx:decline_offer": "node cmd/tx/decline_offer.js"
   },
   "license": "MIT",
   "dependencies": {
