@@ -52,6 +52,7 @@ class ApiService extends Executor {
    */
   async fetchAllNFT () {
     return [{
+      token_id: '1',
       owner: 'aaa',
       image: 'aaa',
       name: 'aaa',
