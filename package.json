@@ -16,15 +16,18 @@
     "@cosmjs/stargate": "^0.26.0",
     "@graphql-tools/graphql-file-loader": "^7.1.0",
     "@graphql-tools/load": "^7.3.2",
+    "aws-sdk": "^2.1042.0",
     "cors": "^2.8.5",
     "csv": "^5.5.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.6.0",
+    "graphql-upload": "^13.0.0",
     "mariadb": "^2.5.4",
     "secretjs": "^0.17.5",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.29.1",
