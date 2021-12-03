@@ -7,10 +7,11 @@ const mintNFT = async () => {
   const contractAddress = process.env.SECRET_NFT_CONTRACT
 
   const executor = new Executor(client, contractAddress)
+  const tokenID = `tokenID${Math.ceil(Math.random() * 10000)}`
 
   const handleMsg = {
     mint_nft: {
-      token_id: 'optional_ID_of_new_token_v4',
+      token_id: tokenID,
       owner: client.senderAddress,
       public_metadata: {
         extension: {
