@@ -7,7 +7,7 @@ class Executor {
    * @param {import('secretjs').SigningCosmWasmClient} client
    * @param {string} contractAddress
    */
-  constructor (client, contractAddress) {
+  constructor (client, contractAddress = '') {
     this.client = client
     this.contractAddress = contractAddress
   }
