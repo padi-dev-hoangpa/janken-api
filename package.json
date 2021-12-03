@@ -8,7 +8,10 @@
     "db:drop": "rm storage/*.sqlite3",
     "dev": " nodemon graphql/index.js",
     "lint": " eslint .",
-    "db:setup-prod": "sequelize-cli db:migrate --env=production; sequelize-cli db:seed:all --env=production"
+    "lint": " eslint .",
+    "db:setup-prod": "sequelize-cli db:migrate --env=production; sequelize-cli db:seed:all --env=production",
+    "deploy:snip721": " node cmd/deploy/deploy-janken.js.",
+    "deploy:janken": " node cmd/deploy/deploy-nft.js."
   },
   "license": "MIT",
   "dependencies": {
