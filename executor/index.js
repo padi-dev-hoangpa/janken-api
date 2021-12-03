@@ -1,6 +1,6 @@
 // @ts-check
 const { parseRawLog } = require('./logs')
-const initClient = require('./client')
+const initClient = require('../client/client')
 
 const main = async () => {
   const client = await initClient()
