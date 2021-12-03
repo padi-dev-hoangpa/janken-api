@@ -10,8 +10,13 @@
     "lint": " eslint .",
     "lint": " eslint .",
     "db:setup-prod": "sequelize-cli db:migrate --env=production; sequelize-cli db:seed:all --env=production",
-    "deploy:snip721": " node cmd/deploy/deploy-janken.js.",
-    "deploy:janken": " node cmd/deploy/deploy-nft.js."
+    "d:snip721": "node cmd/deploy/deploy-janken.js",
+    "d:janken": "node cmd/deploy/deploy-nft.js",
+    "q:tokens": "node cmd/query/tokens.js",
+    "q:nftInfo": "node cmd/query/nftInfo.js",
+    "q:allNFTInfo": "node cmd/query/allNFTInfo.js",
+    "tx:mint-nft": "node cmd/tx/mint-nft.js",
+    "tx:transfer-nft": "node cmd/tx/transfer-nft.js"
   },
   "license": "MIT",
   "dependencies": {
