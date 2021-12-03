@@ -4,8 +4,7 @@ const { Executor } = require('../../executor/executor')
 
 const main = async () => {
   const client = await initClient()
-  const contractAddress = process.env.SECRET_NFT_CONTRACT
-  const executor = new Executor(client, contractAddress)
+  const executor = new Executor(client)
 
   const wasmPATH = './janken.wasm'
   const initMsg = {}

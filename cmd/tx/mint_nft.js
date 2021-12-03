@@ -12,7 +12,7 @@ const mintNFT = async () => {
   const handleMsg = {
     mint_nft: {
       token_id: tokenID,
-      owner: client.senderAddress,
+      owner: process.argv[2],
       public_metadata: {
         extension: {
           image: 'image_url',

@@ -2,20 +2,20 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../executor/executor')
 
-const transferNFT = async () => {
+const NFTInfo = async () => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT
+  console.log(contractAddress)
 
   const executor = new Executor(client, contractAddress)
 
-  const handleMsg = {
-    transfer_nft: {
-      recipient: 'secret1ux8zlapmueayed2zj7u2uddnhx3lh9hw660ddv',
-      token_id: 'optional_ID_of_new_token_v1'
+  const queryMsg = {
+    nft_info: {
+      token_id: Number(process.argv[2])
     }
   }
-  const response = await executor.execute(handleMsg)
+  const response = await executor.query(queryMsg)
   console.log('response: ', JSON.stringify(response))
 }
 
-transferNFT()
+NFTInfo()
