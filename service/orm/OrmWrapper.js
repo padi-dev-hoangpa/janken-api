@@ -45,15 +45,24 @@ class OrmWrapper {
    * @throws {string} tokenId should be unique
    */
   async checkIfTokenIDIsUnique (tokenId) {
-    if (this.getNFT(tokenId) === null) {
+    const q = { tokenId: tokenId }
+    if (await this.getNFT(q) !== null) {
       throw new Error('tokenId is duplicated.')
     }
   }
 
   /**
    * postNFT
+   * @param {Object} args
    */
-  async postNFT () {
+  async postNFT (args) {
+    await Nft.create({
+      tokenId: args.tokenId,
+      owner: args.input.owner,
+      name: args.input.name,
+      image: args.input.image,
+      description: args.input.description
+    })
   }
 }
 

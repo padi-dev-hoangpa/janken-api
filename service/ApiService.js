@@ -39,11 +39,18 @@ class ApiService {
    */
   async postMintNFT (args) {
     const tokenId = Math.floor(Math.random() * 100).toString()
+
+    // check tokenId
     await this.orm.checkIfTokenIDIsUnique(tokenId)
 
-    const res = await this.executor.executeMintNFT(args, tokenId)
+    args.tokenId = tokenId
 
-    return res
+    const response = await this.executor.executeMintNFT(args)
+
+    // save to DB
+    await this.orm.postNFT(args)
+
+    return response
   }
 
   /**
