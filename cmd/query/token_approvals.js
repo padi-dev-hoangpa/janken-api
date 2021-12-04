@@ -2,6 +2,10 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
+/**
+ * tokenApprovals
+ * @param {String} tokenId
+ */
 const tokenApprovals = async (tokenId) => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT

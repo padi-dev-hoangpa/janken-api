@@ -2,6 +2,10 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
+/**
+ * mintNft
+ * @param {String} owner
+ */
 const mintNft = async (owner) => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT

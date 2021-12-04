@@ -4,6 +4,9 @@ const jankenDeploy = require('./janken_contract')
 const nftDeploy = require('./nft_contract')
 const commander = require('commander')
 
+/**
+ * makeDeployCommand
+ */
 function makeDeployCommand () {
   const deploy = new commander
     .Command('deploy')

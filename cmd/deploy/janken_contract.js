@@ -2,6 +2,9 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
+/**
+ * jankenDeploy
+ */
 const jankenDeploy = async () => {
   const client = await initClient()
   const executor = new Executor(client)
