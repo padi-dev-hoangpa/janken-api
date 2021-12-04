@@ -58,6 +58,7 @@ const initClient = async () => {
     txEncryptionSeed,
     customFees
   )
+  console.log('client account: ', client.senderAddress)
   return client
 }
 

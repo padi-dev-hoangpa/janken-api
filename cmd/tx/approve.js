@@ -2,18 +2,18 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
-const acceptOffer = async () => {
+const transferNFT = async () => {
   const client = await initClient()
-  const contractAddress = process.env.JANKEN_CONTRACT
-
-  console.log(contractAddress)
+  const contractAddress = process.env.SECRET_NFT_CONTRACT
+  const jankenContractAddress = process.env.JANKEN_CONTRACT
+  console.log(jankenContractAddress)
 
   const executor = new Executor(client, contractAddress)
 
   const handleMsg = {
-    accept_offer: {
-      id: Number(process.argv[2]),
-      offeree_hands: [3, 1, 2]
+    approve: {
+      spender: jankenContractAddress,
+      token_id: process.argv[2]
     }
   }
   console.log(handleMsg)
@@ -21,4 +21,4 @@ const acceptOffer = async () => {
   console.log('response: ', JSON.stringify(response))
 }
 
-acceptOffer()
+transferNFT()

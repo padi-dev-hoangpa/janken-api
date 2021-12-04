@@ -15,7 +15,7 @@ const makeOffer = async () => {
 
   const handleMsg = {
     make_offer: {
-      id: 1,
+      id: 8,
       offeree: 'secret1ux8zlapmueayed2zj7u2uddnhx3lh9hw660ddv',
       offeror_nft_contract: contractAddress,
       offeror_nft: 'optional_ID_of_new_token_v3',
@@ -27,6 +27,7 @@ const makeOffer = async () => {
       offeror_draw_point: 2
     }
   }
+  console.log(handleMsg)
   const response = await executor.execute(handleMsg)
   console.log('response: ', JSON.stringify(response))
 }

@@ -3,8 +3,6 @@ const config = require('./config')
 const path = require('path')
 const { v4: uuid } = require('uuid')
 
-console.log(config)
-
 const s3 = new AWS.S3(config.s3)
 
 function uuidFilenameTransform (filename = '') {
