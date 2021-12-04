@@ -11,6 +11,9 @@ const commander = require('commander')
 
 const myParseInt = require('../utils/parseInt')
 
+/**
+ * makeQueryCommand
+ */
 function makeQueryCommand () {
   const query = new commander
     .Command('query')

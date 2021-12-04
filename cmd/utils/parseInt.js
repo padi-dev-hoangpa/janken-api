@@ -1,6 +1,10 @@
 'use strict'
 const commander = require('commander')
 
+/**
+ * myParseInt
+ * @param {String} value
+ */
 function myParseInt (value) {
   // parseInt takes a string and a radix
   const parsedValue = parseInt(value, 10)

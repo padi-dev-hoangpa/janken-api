@@ -2,6 +2,10 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
+/**
+ * acceptOffer
+ * @param {Number} id
+ */
 const acceptOffer = async (id) => {
   const client = await initClient()
   const contractAddress = process.env.JANKEN_CONTRACT

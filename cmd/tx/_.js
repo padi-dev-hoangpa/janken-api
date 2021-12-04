@@ -12,6 +12,9 @@ const commander = require('commander')
 
 const myParseInt = require('../utils/parseInt')
 
+/**
+ * makeTxCommand
+ */
 function makeTxCommand () {
   const tx = new commander
     .Command('tx')
