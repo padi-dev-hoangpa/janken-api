@@ -40,6 +40,17 @@ class OrmWrapper {
   }
 
   /**
+   * checkIfTokenIDIsUnique
+   * @param {String} tokenId
+   * @throws {string} tokenId should be unique
+   */
+  async checkIfTokenIDIsUnique (tokenId) {
+    if (this.getNFT(tokenId) === null) {
+      throw new Error('tokenId is duplicated.')
+    }
+  }
+
+  /**
    * postNFT
    */
   async postNFT () {
