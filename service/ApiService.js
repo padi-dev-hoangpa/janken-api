@@ -1,5 +1,5 @@
 // @ts-check
-const { Executor } = require('../executor/executor')
+const { Executor } = require('./executor/Executor')
 const s3AvatarUploader = require('../graphql/s3')
 
 /**
