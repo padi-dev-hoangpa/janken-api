@@ -15,6 +15,10 @@ class ApiService {
     this.orm = orm
   }
 
+  /**
+   * postUploadImage
+   * @param {Object} args
+   */
   async postUploadImage (args) {
     const { createReadStream, filename, mimetype, encoding } = await args.file.file
     const uri = await s3AvatarUploader.upload(createReadStream(), {
@@ -34,25 +38,12 @@ class ApiService {
    * @param {Object} args
    */
   async postMintNFT (args) {
-    const tokenID = Math.floor(Math.random() * 100)
+    const tokenId = Math.floor(Math.random() * 100).toString()
+    await this.orm.checkIfTokenIDIsUnique(tokenId)
 
-    const handleMsg = {
-      mint_nft: {
-        token_id: tokenID.toString(),
-        owner: args.input.owner,
-        public_metadata: {
-          extension: {
-            image: args.input.image,
-            name: args.input.name,
-            description: args.input.description
-          }
-        }
-      }
-    }
+    const res = await this.executor.executeMintNFT(args, tokenId)
 
-    // TODO: add error handling
-    const result = await this.executor.execute(handleMsg)
-    return { txHash: result.transactionHash }
+    return res
   }
 
   /**

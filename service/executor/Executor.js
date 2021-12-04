@@ -62,6 +62,35 @@ class Executor {
     const response = await this.client.queryContractSmart(this.contractAddress, queryMsg)
     return response
   }
+
+  /**
+   * executeMintNFT
+   * @param {Object} args
+   * @param {String} tokenId
+   */
+  async executeMintNFT (args, tokenId) {
+    const handleMsg = {
+      mint_nft: {
+        token_id: tokenId,
+        owner: args.input.owner,
+        public_metadata: {
+          extension: {
+            image: args.input.image,
+            name: args.input.name,
+            description: args.input.description
+          }
+        }
+      }
+    }
+
+    let response
+    try {
+      response = await this.client.execute(this.contractAddress, handleMsg)
+    } catch (e) {
+      throw new Error('failed to mint NFT')
+    }
+    return { txHash: response.transactionHash }
+  }
 }
 
 module.exports = {
