@@ -1,7 +1,7 @@
 scalar Upload
 ##################################### QUERY ##########################################
 type Query {
-  fetchAllNFT: [NFT]
+  fetchAllNFTs: [NFT]
   fetchUploads: [File]
 }
 

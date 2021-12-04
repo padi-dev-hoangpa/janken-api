@@ -1,4 +1,5 @@
 // @ts-check
+const { Nft } = require('../../models')
 
 /**
  * OrmWrapper
@@ -14,6 +15,8 @@ class OrmWrapper {
    * getNFTs
    */
   async getNFTs () {
+    const NFTs = await Nft.findAll({})
+    return NFTs
   }
 
   /**
