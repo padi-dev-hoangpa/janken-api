@@ -2,7 +2,7 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
-const acceptOffer = async () => {
+const acceptOffer = async (id) => {
   const client = await initClient()
   const contractAddress = process.env.JANKEN_CONTRACT
 
@@ -12,7 +12,7 @@ const acceptOffer = async () => {
 
   const handleMsg = {
     accept_offer: {
-      id: Number(process.argv[2]),
+      id: id,
       offeree_hands: [3, 1, 2]
     }
   }
@@ -21,4 +21,4 @@ const acceptOffer = async () => {
   console.log('response: ', JSON.stringify(response))
 }
 
-acceptOffer()
+module.exports = acceptOffer

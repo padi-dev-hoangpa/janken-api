@@ -2,7 +2,7 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
-const main = async () => {
+const jankenDeploy = async () => {
   const client = await initClient()
   const executor = new Executor(client)
 
@@ -13,6 +13,4 @@ const main = async () => {
   await executor.deploy(wasmPATH, initMsg, contractName)
 }
 
-main().catch((err) => {
-  console.error(err)
-})
+module.exports = jankenDeploy

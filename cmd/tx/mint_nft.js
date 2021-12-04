@@ -2,7 +2,7 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
-const mintNFT = async () => {
+const mintNft = async (owner) => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT
 
@@ -12,7 +12,7 @@ const mintNFT = async () => {
   const handleMsg = {
     mint_nft: {
       token_id: tokenID,
-      owner: process.argv[2],
+      owner: owner,
       public_metadata: {
         extension: {
           image: 'image_url',
@@ -27,4 +27,4 @@ const mintNFT = async () => {
   console.log('response: ', JSON.stringify(response))
 }
 
-mintNFT()
+module.exports = mintNft

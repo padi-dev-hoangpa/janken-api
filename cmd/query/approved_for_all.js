@@ -2,7 +2,7 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
-const NFTInfo = async () => {
+const approvedForAll = async (owner) => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT
   console.log(contractAddress)
@@ -11,7 +11,7 @@ const NFTInfo = async () => {
 
   const queryMsg = {
     approved_for_all: {
-      owner: process.argv[2],
+      owner: owner,
       viewing_key: '12345678'
     }
   }
@@ -19,4 +19,4 @@ const NFTInfo = async () => {
   console.log('response: ', JSON.stringify(response))
 }
 
-NFTInfo()
+module.exports = approvedForAll
