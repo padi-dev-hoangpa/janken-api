@@ -1,6 +1,6 @@
 // @ts-check
 const initClient = require('../../client/client')
-const { Executor } = require('../../executor/executor')
+const { Executor } = require('../../service/executor/executor')
 
 const allNFTInfo = async () => {
   const client = await initClient()

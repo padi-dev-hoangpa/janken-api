@@ -1,6 +1,6 @@
 // @ts-check
 const initClient = require('../../client/client')
-const { Executor } = require('../../executor/executor')
+const { Executor } = require('../../service/executor/executor')
 
 const makeOffer = async () => {
   const client = await initClient()
@@ -15,7 +15,7 @@ const makeOffer = async () => {
 
   const handleMsg = {
     make_offer: {
-      id: 3,
+      id: 1,
       offeree: 'secret1ux8zlapmueayed2zj7u2uddnhx3lh9hw660ddv',
       offeror_nft_contract: contractAddress,
       offeror_nft: 'optional_ID_of_new_token_v3',
