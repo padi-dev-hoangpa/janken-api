@@ -10,7 +10,7 @@ class ApiService {
    * @param {import('./executor/Executor').Executor} executor
    * @param {import('./orm/OrmWrapper').OrmWrapper} orm
    */
-  constructor (executor, orm) {
+  constructor (executor = null, orm) {
     this.executor = executor
     this.orm = orm
   }
@@ -56,16 +56,10 @@ class ApiService {
   }
 
   /**
-   * fetchAllNFT
+   * fetchAllNFTs
    */
-  async fetchAllNFT () {
-    return [{
-      token_id: '1',
-      owner: 'aaa',
-      image: 'aaa',
-      name: 'aaa',
-      description: 'aaa'
-    }]
+  async fetchAllNFTs () {
+    return await this.orm.getNFTs()
   }
 }
 
