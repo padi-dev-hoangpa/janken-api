@@ -16,6 +16,7 @@ class Resolver {
       Upload: GraphQLUpload,
       fetchAllNFTs: this.service.fetchAllNFTs,
       fetchNFT: this.service.fetchNFT,
+      fetchNFTsByOwner: this.service.fetchNFTsByOwner,
       postMintNFT: this.service.postMintNFT.bind(this.service),
       postUploadImage: this.service.postUploadImage.bind(this.service)
     }

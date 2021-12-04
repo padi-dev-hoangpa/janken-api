@@ -69,6 +69,14 @@ class ApiService {
   async fetchNFT (args) {
     return await this.orm.getNFT(args)
   }
+
+  /**
+   * fetchNFTsByOwner
+   * @param {Object} args
+   */
+  async fetchNFTsByOwner (args) {
+    return await this.orm.getNFTsByOwner(args)
+  }
 }
 
 module.exports = ApiService
