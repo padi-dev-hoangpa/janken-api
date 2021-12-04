@@ -2,7 +2,7 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
-const NFTInfo = async () => {
+const NftInfo = async (tokenId) => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT
   console.log(contractAddress)
@@ -11,11 +11,11 @@ const NFTInfo = async () => {
 
   const queryMsg = {
     nft_info: {
-      token_id: Number(process.argv[2])
+      token_id: tokenId
     }
   }
   const response = await executor.query(queryMsg)
   console.log('response: ', JSON.stringify(response))
 }
 
-NFTInfo()
+module.exports = NftInfo

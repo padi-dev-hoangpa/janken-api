@@ -2,7 +2,7 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
-const transferNFT = async () => {
+const transferNft = async (recipient, tokenId) => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT
 
@@ -10,12 +10,12 @@ const transferNFT = async () => {
 
   const handleMsg = {
     transfer_nft: {
-      recipient: process.argv[2],
-      token_id: process.argv[3]
+      recipient: recipient,
+      token_id: tokenId
     }
   }
   const response = await executor.execute(handleMsg)
   console.log('response: ', JSON.stringify(response))
 }
 
-transferNFT()
+module.exports = transferNft

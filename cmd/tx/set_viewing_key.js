@@ -2,7 +2,7 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
-const transferNFT = async () => {
+const setViewingKey = async () => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT
 
@@ -17,4 +17,4 @@ const transferNFT = async () => {
   console.log('response: ', JSON.stringify(response))
 }
 
-transferNFT()
+module.exports = setViewingKey

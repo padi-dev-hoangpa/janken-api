@@ -2,7 +2,7 @@
 const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
-const tokens = async () => {
+const tokenApprovals = async (tokenId) => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT
 
@@ -10,7 +10,7 @@ const tokens = async () => {
 
   const queryMsg = {
     token_approvals: {
-      token_id: process.argv[2],
+      token_id: tokenId,
       viewing_key: '12345678'
     }
   }
@@ -18,4 +18,4 @@ const tokens = async () => {
   console.log('response: ', JSON.stringify(response))
 }
 
-tokens()
+module.exports = tokenApprovals
