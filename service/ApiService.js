@@ -25,6 +25,8 @@ class ApiService {
       filename,
       mimetype
     })
+      .catch((e) => { throw new Error(`fail to upload image: ${e}`) })
+
     return {
       filename,
       mimetype,

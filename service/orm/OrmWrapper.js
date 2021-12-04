@@ -15,6 +15,7 @@ class OrmWrapper {
         tokenId: args.tokenId
       }
     })
+      .catch((e) => { throw new Error(`fail to find NFT: ${e}`) })
     return NFT
   }
 
@@ -23,6 +24,7 @@ class OrmWrapper {
    */
   async getNFTs () {
     const NFTs = await Nft.findAll({})
+      .catch((e) => { throw new Error(`fail to find NFTs: ${e}`) })
     return NFTs
   }
 
@@ -36,6 +38,7 @@ class OrmWrapper {
         owner: args.owner
       }
     })
+      .catch((e) => { throw new Error(`fail to find NFTs By Owner: ${e}`) })
     return NFTs
   }
 
@@ -63,6 +66,7 @@ class OrmWrapper {
       image: args.input.image,
       description: args.input.description
     })
+      .catch((e) => { throw new Error(`fail to post NFT: ${e}`) })
   }
 }
 
