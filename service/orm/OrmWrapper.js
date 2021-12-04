@@ -15,6 +15,7 @@ class OrmWrapper {
         tokenId: args.tokenId
       }
     })
+      .catch((e) => { throw new Error(`fail to find NFT: ${e}`) })
     return NFT
   }
 
@@ -23,6 +24,7 @@ class OrmWrapper {
    */
   async getNFTs () {
     const NFTs = await Nft.findAll({})
+      .catch((e) => { throw new Error(`fail to find NFTs: ${e}`) })
     return NFTs
   }
 
@@ -36,6 +38,7 @@ class OrmWrapper {
         owner: args.owner
       }
     })
+      .catch((e) => { throw new Error(`fail to find NFTs By Owner: ${e}`) })
     return NFTs
   }
 
@@ -45,15 +48,25 @@ class OrmWrapper {
    * @throws {string} tokenId should be unique
    */
   async checkIfTokenIDIsUnique (tokenId) {
-    if (this.getNFT(tokenId) === null) {
+    const q = { tokenId: tokenId }
+    if (await this.getNFT(q) !== null) {
       throw new Error('tokenId is duplicated.')
     }
   }
 
   /**
    * postNFT
+   * @param {Object} args
    */
-  async postNFT () {
+  async postNFT (args) {
+    await Nft.create({
+      tokenId: args.tokenId,
+      owner: args.input.owner,
+      name: args.input.name,
+      image: args.input.image,
+      description: args.input.description
+    })
+      .catch((e) => { throw new Error(`fail to post NFT: ${e}`) })
   }
 }
 

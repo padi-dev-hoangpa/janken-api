@@ -66,12 +66,11 @@ class Executor {
   /**
    * executeMintNFT
    * @param {Object} args
-   * @param {String} tokenId
    */
-  async executeMintNFT (args, tokenId) {
+  async executeMintNFT (args) {
     const handleMsg = {
       mint_nft: {
-        token_id: tokenId,
+        token_id: args.tokenId,
         owner: args.input.owner,
         public_metadata: {
           extension: {
@@ -82,12 +81,11 @@ class Executor {
         }
       }
     }
-
     let response
     try {
-      response = await this.client.execute(this.contractAddress, handleMsg)
+      response = await this.execute(handleMsg)
     } catch (e) {
-      throw new Error('failed to mint NFT')
+      throw new Error(`failed to mint NFT: ${e}`)
     }
     return { txHash: response.transactionHash }
   }
