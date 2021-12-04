@@ -28,8 +28,15 @@ class OrmWrapper {
 
   /**
    * getNFTsByOwner
+   * @param {Object} args ex: { owner: 'secret...' }
    */
-  async getNFTsByOwner () {
+  async getNFTsByOwner (args) {
+    const NFTs = await Nft.findAll({
+      where: {
+        owner: args.owner
+      }
+    })
+    return NFTs
   }
 
   /**
