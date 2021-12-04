@@ -6,7 +6,7 @@ const main = async () => {
   const client = await initClient()
   const executor = new Executor(client)
 
-  const wasmPATH = './snip721.wasm'
+  const wasmPATH = './wasm/snip721.wasm'
   const initMsg = {
     /// name of token contract
     name: 'aaa',

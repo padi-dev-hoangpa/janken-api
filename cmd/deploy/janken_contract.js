@@ -6,7 +6,7 @@ const main = async () => {
   const client = await initClient()
   const executor = new Executor(client)
 
-  const wasmPATH = './janken.wasm'
+  const wasmPATH = './wasm/janken.wasm'
   const initMsg = {}
   const contractName = `My Janken${Math.ceil(Math.random() * 10000)}`
 
