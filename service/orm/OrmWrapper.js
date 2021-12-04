@@ -7,8 +7,15 @@ const { Nft } = require('../../models')
 class OrmWrapper {
   /**
    * getNFT
+   * @param {Object} args ex: { tokenId: '0001' }
    */
-  async getNFT () {
+  async getNFT (args) {
+    const NFT = await Nft.findOne({
+      where: {
+        tokenId: args.tokenId
+      }
+    })
+    return NFT
   }
 
   /**
