@@ -29,4 +29,6 @@ class OrmWrapper {
   }
 }
 
-module.exports = OrmWrapper
+module.exports = {
+  OrmWrapper
+}

@@ -7,13 +7,17 @@ const schema = require('./schema')
 const Resolver = require('./Resolver')
 const Service = require('../service/ApiService.js')
 const initClient = require('../client/client')
+const { Executor } = require('../service/executor/Executor')
+const { OrmWrapper } = require('../service/orm/OrmWrapper')
 const contractAddress = process.env.SECRET_NFT_CONTRACT
 
 const { graphqlUploadExpress } = require('graphql-upload')
 
 const main = async () => {
   const client = await initClient()
-  const service = new Service(client, contractAddress)
+  const executor = new Executor(client, contractAddress)
+  const orm = new OrmWrapper()
+  const service = new Service(executor, orm)
   const resolver = new Resolver(service).init()
 
   // Create an express server and a GraphQL endpoint

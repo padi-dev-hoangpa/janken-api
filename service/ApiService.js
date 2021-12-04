@@ -1,12 +1,20 @@
 // @ts-check
-const { Executor } = require('./executor/Executor')
 const s3AvatarUploader = require('../graphql/s3')
 
 /**
  * ApiService
- * @extends Executor
  */
-class ApiService extends Executor {
+class ApiService {
+  /**
+   * @constructor
+   * @param {import('./executor/Executor').Executor} executor
+   * @param {import('./orm/OrmWrapper').OrmWrapper} orm
+   */
+  constructor (executor, orm) {
+    this.executor = executor
+    this.orm = orm
+  }
+
   async postUploadImage (args) {
     const { createReadStream, filename, mimetype, encoding } = await args.file.file
     const uri = await s3AvatarUploader.upload(createReadStream(), {
@@ -43,7 +51,7 @@ class ApiService extends Executor {
     }
 
     // TODO: add error handling
-    const result = await super.execute(handleMsg)
+    const result = await this.executor.execute(handleMsg)
     return { txHash: result.transactionHash }
   }
 
