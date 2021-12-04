@@ -16,9 +16,12 @@
     "q:tokens": "node cmd/query/tokens.js",
     "q:nft_info": "node cmd/query/nft_info.js",
     "q:all_nft_info": "node cmd/query/all_nft_info.js",
+    "q:token_approvals": "node cmd/query/token_approvals.js",
     "q:offer": "node cmd/query/offer.js",
     "tx:mint_nft": "node cmd/tx/mint_nft.js",
     "tx:transfer_nft": "node cmd/tx/transfer_nft.js",
+    "tx:approve": "node cmd/tx/approve.js",
+    "tx:set_viewing_key": "node cmd/tx/set_viewing_key.js",
     "tx:make_offer": "node cmd/tx/make_offer.js",
     "tx:accept_offer": "node cmd/tx/accept_offer.js",
     "tx:decline_offer": "node cmd/tx/decline_offer.js"
