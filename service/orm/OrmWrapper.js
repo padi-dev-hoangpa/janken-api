@@ -68,6 +68,34 @@ class OrmWrapper {
     })
       .catch((e) => { throw new Error(`fail to post NFT: ${e}`) })
   }
+
+  /**
+   * getAllNFTOwners
+   */
+  async getAllNFTOwners () {
+    const owners = await Nft.findAll({
+      group: 'owner'
+    })
+      .catch((e) => { throw new Error(`fail to find owners list: ${e}`) })
+
+    return owners
+  }
+
+  /**
+   * updateNFTOwner
+   * @param {String} tokenId
+   * @param {String} owner
+   */
+  async updateNFTOwner (tokenId, owner) {
+    const q = { tokenId: tokenId }
+    const NFT = await this.getNFT(q)
+    if (NFT === null) {
+      throw new Error('this tokenId is not in DB')
+    }
+    NFT.owner = owner
+    await NFT.save()
+      .catch((e) => { throw new Error(`fail to update NFT Owner: ${e}`) })
+  }
 }
 
 module.exports = {
