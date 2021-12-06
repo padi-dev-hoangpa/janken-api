@@ -4,6 +4,7 @@ type Query {
   fetchAllNFTs: [NFT]
   fetchNFT(tokenId: String!): NFT
   fetchNFTsByOwner(owner: String!): [NFT]
+  fetchOffers(address: String!): [Offer]
 }
 
 ##################################### MUTATION #######################################
@@ -28,6 +29,21 @@ type MintNFTResult {
 
 type MakeOfferResult {
   txHash: String
+}
+
+type Offer {
+  offerId: Int!
+  status: String,
+  offeror: String,
+  offerorNftContract: String,
+  offerorNft: String,
+  offerorHands: [Int!],
+  offeree: String,
+  offereeNftContract: String,
+  offereeNft: String,
+  offereeHands: [Int!],
+  drawPoint: Int,
+  winner: String
 }
 
 ##################################### INPUT ##########################################

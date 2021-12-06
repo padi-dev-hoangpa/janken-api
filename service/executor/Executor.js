@@ -94,7 +94,7 @@ class Executor {
    * executeMintNFT
    * @param {Object} args
    */
-   async executeMakeOffer (args) {
+  async executeMakeOffer (args) {
     const input = args.input
     const handleMsg = {
       make_offer: {

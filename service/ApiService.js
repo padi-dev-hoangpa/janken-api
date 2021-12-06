@@ -78,7 +78,7 @@ class ApiService {
     return await this.orm.getNFTsByOwner(args)
   }
 
-  async postMakeOffer(args) {
+  async postMakeOffer (args) {
     const id = args.input.id
 
     // check offerId
@@ -90,6 +90,14 @@ class ApiService {
     await this.orm.postOffer(args)
 
     return response
+  }
+
+  /**
+   * fetchOffers
+   * @param {Object} args
+   */
+  async fetchOffers (args) {
+    return await this.orm.getOffers(args)
   }
 }
 
