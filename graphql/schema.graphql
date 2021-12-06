@@ -14,7 +14,7 @@ type Mutation {
 
 ##################################### TYPE ###########################################
 type NFT {
-  token_id: String!
+  tokenId: String!
   owner: String!
   image: String
   name: String
