@@ -1,6 +1,8 @@
 // @ts-check
 const s3AvatarUploader = require('../graphql/s3')
 
+const getArraysDiff = require('./helper/getArraysDiff')
+
 /**
  * ApiService
  */
@@ -78,14 +80,42 @@ class ApiService {
     return await this.orm.getNFTsByOwner(args)
   }
 
-  async fetchOwnerNFT(address) {
-    return [{
-      token_id: '1',
-      owner: 'aaa',
-      image: 'aaa',
-      name: 'aaa',
-      description: 'aaa'
-    }]
+  /**
+   * postPollingNFTOwners
+   */
+  async postPollingNFTOwners () {
+    const owners = await this.orm.getAllNFTOwners()
+    const ownersList = owners.map(value => value.owner)
+
+    console.log(owners)
+
+    for (const owner of ownersList) {
+      const args = { owner: owner }
+      const NFTsInDB = await this.orm.getNFTsByOwner(args)
+      const tokenIdsFromDB = NFTsInDB.map(value => value.tokenId)
+      console.log(tokenIdsFromDB)
+
+      const NFTsFromContract = await this.executor.queryTokens(owner)
+      const tokenIdsFromContract = NFTsFromContract.token_list.tokens
+
+      const diffNFTs = getArraysDiff(tokenIdsFromDB, tokenIdsFromContract)
+      console.log('diff: ', diffNFTs)
+      for (const tokenId of diffNFTs) {
+        try {
+          const res = await this.executor.queryAllNftInfo(tokenId)
+          console.log(res)
+
+          const owner = res.all_nft_info.access.owner
+
+          await this.orm.updateNFTOwner(tokenId, owner)
+            .catch((e) => console.log(e))
+        } catch (e) {
+          console.log('failed to query')
+        }
+      }
+    }
+
+    return { status: 'ok' }
   }
 }
 

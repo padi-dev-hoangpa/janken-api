@@ -10,6 +10,7 @@ type Query {
 type Mutation {
   postMintNFT(input: MintNFTInput): MintNFTResult
   postUploadImage(file: Upload!): File
+  postPollingNFTOwners: Result
 }
 
 ##################################### TYPE ###########################################
@@ -23,6 +24,10 @@ type NFT {
 
 type MintNFTResult {
   txHash: String
+}
+
+type Result {
+  status: String
 }
 
 ##################################### INPUT ##########################################
