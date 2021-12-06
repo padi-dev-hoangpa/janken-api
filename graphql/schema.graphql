@@ -9,6 +9,7 @@ type Query {
 ##################################### MUTATION #######################################
 type Mutation {
   postMintNFT(input: MintNFTInput): MintNFTResult
+  postMakeOffer(input: OfferInput): MakeOfferResult
   postUploadImage(file: Upload!): File
 }
 
@@ -25,6 +26,10 @@ type MintNFTResult {
   txHash: String
 }
 
+type MakeOfferResult {
+  txHash: String
+}
+
 ##################################### INPUT ##########################################
 input MintNFTInput {
   owner: String!
@@ -38,4 +43,17 @@ type File {
   filename: String!
   mimetype: String!
   encoding: String!
+}
+
+input OfferInput {
+  id: Int!
+  offeree: String,
+  offeror_nft_contract: String,
+  offeror_nft: String,
+  offeror_code_hash: String,
+  offeree_nft_contract: String,
+  offeree_nft: String,
+  offeree_code_hash: String,
+  offeror_hands: [Int!],
+  offeror_draw_point: Int
 }

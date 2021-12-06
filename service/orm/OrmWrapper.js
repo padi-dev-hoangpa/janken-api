@@ -1,5 +1,5 @@
 // @ts-check
-const { Nft } = require('../../models')
+const { Nft, Offer } = require('../../models')
 
 /**
  * OrmWrapper
@@ -67,6 +67,55 @@ class OrmWrapper {
       description: args.input.description
     })
       .catch((e) => { throw new Error(`fail to post NFT: ${e}`) })
+  }
+
+  /**
+   * checkIfIDIsUnique
+   * @param {String} offerId
+   * @throws {string} id should be unique
+   */
+   async checkIfOfferIDIsUnique (offerId) {
+    const q = { offerId: offerId }
+    if (await this.getOffer(q) !== null) {
+      throw new Error('Id is duplicated.')
+    }
+  }
+
+  /**
+   * getOffer
+   * @param {Object} args ex: { id: '0001' }
+   */
+  async getOffer (args) {
+    const OFFER = await Offer.findOne({
+      where: {
+        offerId: args.offerId
+      }
+    })
+      .catch((e) => { throw new Error(`fail to find offer: ${e}`) })
+
+    console.log(OFFER)
+    return OFFER
+  }
+
+  /**
+   * postOffer
+   * @param {Object} args
+   */
+   async postOffer (args) {
+    const input = args.input
+    await Offer.create({
+      offerId: input.id,
+      offeree: input.offeree,
+      status: "REQUEST",
+      offereeNftContract: input.offeror_nft_contract,
+      offereeNft: input.offeree_nft,
+      offerorNftContract: input.offeror_nft_contract,
+      offerorNft: input.offeror_nft,
+      offereeHands: JSON.stringify(args.offeror_hands),
+      drawPoint: input.offeror_draw_point,
+      winner: ''
+    })
+      .catch((e) => { throw new Error(`fail to post OFFER: ${e}`) })
   }
 }
 
