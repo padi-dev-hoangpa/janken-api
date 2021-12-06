@@ -42,7 +42,7 @@ class ApiService {
    * @param {Object} args
    */
   async postMintNFT (args) {
-    const tokenId = Math.floor(Math.random() * 100).toString()
+    const tokenId = 'snip721-' + Math.floor(Math.random() * 10000).toString()
 
     // check tokenId
     await this.orm.checkIfTokenIDIsUnique(tokenId)
@@ -80,6 +80,7 @@ class ApiService {
     return await this.orm.getNFTsByOwner(args)
   }
 
+
   /**
    * postPollingNFTOwners
    */
@@ -116,6 +117,28 @@ class ApiService {
     }
 
     return { status: 'ok' }
+  }
+
+  async postMakeOffer (args) {
+    const id = args.input.id
+
+    // check offerId
+    await this.orm.checkIfOfferIDIsUnique(id)
+
+    const response = await this.executor.executeMakeOffer(args)
+
+    // // save to DB
+    await this.orm.postOffer(args)
+
+    return response
+  }
+
+  /**
+   * fetchOffers
+   * @param {Object} args
+   */
+  async fetchOffers (args) {
+    return await this.orm.getOffers(args)
   }
 }
 

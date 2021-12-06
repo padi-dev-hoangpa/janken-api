@@ -1,5 +1,6 @@
 // @ts-check
-const { Nft } = require('../../models')
+const { Nft, Offer } = require('../../models')
+const { Op } = require('sequelize')
 
 /**
  * OrmWrapper
@@ -95,6 +96,78 @@ class OrmWrapper {
     NFT.owner = owner
     await NFT.save()
       .catch((e) => { throw new Error(`fail to update NFT Owner: ${e}`) })
+  }
+  
+   * checkIfIDIsUnique
+   * @param {String} offerId
+   * @throws {string} id should be unique
+   */
+   async checkIfOfferIDIsUnique (offerId) {
+    const q = { offerId: offerId }
+    if (await this.getOffer(q) !== null) {
+      throw new Error('Id is duplicated.')
+    }
+  }
+
+  /**
+   * getOffer
+   * @param {Object} args ex: { id: '0001' }
+   */
+  async getOffer (args) {
+    const OFFER = await Offer.findOne({
+      where: {
+        offerId: args.offerId
+      }
+    })
+      .catch((e) => { throw new Error(`fail to find offer: ${e}`) })
+
+    console.log(OFFER)
+    return OFFER
+  }
+
+  /**
+   * postOffer
+   * @param {Object} args
+   */
+  async postOffer (args) {
+    const input = args.input
+    await Offer.create({
+      offerId: input.id,
+      offeree: input.offeree,
+      status: 'REQUEST',
+      offereeNftContract: input.offeror_nft_contract,
+      offereeNft: input.offeree_nft,
+      offerorNftContract: input.offeror_nft_contract,
+      offerorNft: input.offeror_nft,
+      offereeHands: JSON.stringify(args.offeror_hands),
+      drawPoint: input.offeror_draw_point,
+      winner: ''
+    })
+      .catch((e) => { throw new Error(`fail to post OFFER: ${e}`) })
+  }
+
+  /**
+   * getOffers
+   * @param {Object} args ex: { address: 'secret...' }
+   */
+  async getOffers (args) {
+    let offers = await Offer.findAll({
+      where: {
+        [Op.or]: [
+          { offeror: args.address },
+          { offeree: args.address }
+        ]
+      }
+    })
+      .catch((e) => { throw new Error(`fail to find offers: ${e}`) })
+
+    offers = offers.map(offer => {
+      offer.offerorHands = JSON.parse(offer.offerorHands)
+      offer.offereeHands = JSON.parse(offer.offereeHands)
+      return offer
+    })
+
+    return offers
   }
 }
 

@@ -4,18 +4,20 @@ type Query {
   fetchAllNFTs: [NFT]
   fetchNFT(tokenId: String!): NFT
   fetchNFTsByOwner(owner: String!): [NFT]
+  fetchOffers(address: String!): [Offer]
 }
 
 ##################################### MUTATION #######################################
 type Mutation {
   postMintNFT(input: MintNFTInput): MintNFTResult
+  postMakeOffer(input: OfferInput): MakeOfferResult
   postUploadImage(file: Upload!): File
   postPollingNFTOwners: Result
 }
 
 ##################################### TYPE ###########################################
 type NFT {
-  token_id: String!
+  tokenId: String!
   owner: String!
   image: String
   name: String
@@ -28,6 +30,25 @@ type MintNFTResult {
 
 type Result {
   status: String
+}
+
+type MakeOfferResult {
+  txHash: String
+}
+
+type Offer {
+  offerId: Int!
+  status: String,
+  offeror: String,
+  offerorNftContract: String,
+  offerorNft: String,
+  offerorHands: [Int!],
+  offeree: String,
+  offereeNftContract: String,
+  offereeNft: String,
+  offereeHands: [Int!],
+  drawPoint: Int,
+  winner: String
 }
 
 ##################################### INPUT ##########################################
@@ -43,4 +64,17 @@ type File {
   filename: String!
   mimetype: String!
   encoding: String!
+}
+
+input OfferInput {
+  id: Int!
+  offeree: String,
+  offeror_nft_contract: String,
+  offeror_nft: String,
+  offeror_code_hash: String,
+  offeree_nft_contract: String,
+  offeree_nft: String,
+  offeree_code_hash: String,
+  offeror_hands: [Int!],
+  offeror_draw_point: Int
 }

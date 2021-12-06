@@ -19,7 +19,9 @@ class Resolver {
       fetchNFTsByOwner: this.service.fetchNFTsByOwner.bind(this.service),
       postMintNFT: this.service.postMintNFT.bind(this.service),
       postUploadImage: this.service.postUploadImage.bind(this.service),
-      postPollingNFTOwners: this.service.postPollingNFTOwners.bind(this.service)
+      postPollingNFTOwners: this.service.postPollingNFTOwners.bind(this.service),
+      postMakeOffer: this.service.postMakeOffer.bind(this.service),
+      fetchOffers: this.service.fetchOffers.bind(this.service)
     }
     return resolvers
   }
