@@ -80,7 +80,6 @@ class ApiService {
     return await this.orm.getNFTsByOwner(args)
   }
 
-
   /**
    * postPollingNFTOwners
    */

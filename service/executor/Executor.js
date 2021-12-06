@@ -117,7 +117,8 @@ class Executor {
     }
     return await this.query(queryMsg)
   }
-  
+
+  /**
    * executeMintNFT
    * @param {Object} args
    */
@@ -146,6 +147,7 @@ class Executor {
     }
     return { txHash: response.transactionHash }
   }
+}
 
 module.exports = {
   Executor

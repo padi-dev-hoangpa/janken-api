@@ -97,12 +97,13 @@ class OrmWrapper {
     await NFT.save()
       .catch((e) => { throw new Error(`fail to update NFT Owner: ${e}`) })
   }
-  
+
+  /**
    * checkIfIDIsUnique
    * @param {String} offerId
    * @throws {string} id should be unique
    */
-   async checkIfOfferIDIsUnique (offerId) {
+  async checkIfOfferIDIsUnique (offerId) {
     const q = { offerId: offerId }
     if (await this.getOffer(q) !== null) {
       throw new Error('Id is duplicated.')
