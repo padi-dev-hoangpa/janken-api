@@ -152,7 +152,7 @@ class OrmWrapper {
    * @param {Object} args ex: { address: 'secret...' }
    */
   async getOffers (args) {
-    let offers = await Offer.findAll({
+    const offers = await Offer.findAll({
       where: {
         [Op.or]: [
           { offeror: args.address },
@@ -161,12 +161,6 @@ class OrmWrapper {
       }
     })
       .catch((e) => { throw new Error(`fail to find offers: ${e}`) })
-
-    offers = offers.map(offer => {
-      offer.offerorHands = JSON.parse(offer.offerorHands)
-      offer.offereeHands = JSON.parse(offer.offereeHands)
-      return offer
-    })
 
     return offers
   }

@@ -3,6 +3,8 @@ const s3AvatarUploader = require('../graphql/s3')
 
 const getArraysDiff = require('./helper/getArraysDiff')
 
+const OfferResponse = require('./types/OfferResponse')
+
 /**
  * ApiService
  */
@@ -137,7 +139,27 @@ class ApiService {
    * @param {Object} args
    */
   async fetchOffers (args) {
-    return await this.orm.getOffers(args)
+    const offers = await this.orm.getOffers(args)
+
+    const offerResponse = []
+    for (const offer of offers) {
+      console.log('okL:', offer)
+      const offerorNFT = await this.orm.getNFT({ tokenId: offer.offerorNft })
+      const offereeNFT = await this.orm.getNFT({ tokenId: offer.offereeNft })
+
+      const res = new OfferResponse(offer.offerId)
+        .setStatus(offer.status)
+        .setOfferorNFT(offerorNFT)
+        .setOfferorNFT(offereeNFT)
+        .setOfferorHands(JSON.parse(offer.offerorHands))
+        .setOffereeHands(JSON.parse(offer.offereeHands))
+        .setDrawPoint(offer.drawPoint)
+        .setWinner(offer.winner)
+
+      offerResponse.push(res)
+    }
+
+    return offerResponse
   }
 }
 
