@@ -78,14 +78,18 @@ class ApiService {
     return await this.orm.getNFTsByOwner(args)
   }
 
-  async fetchOwnerNFT(address) {
-    return [{
-      token_id: '1',
-      owner: 'aaa',
-      image: 'aaa',
-      name: 'aaa',
-      description: 'aaa'
-    }]
+  async postMakeOffer(args) {
+    const id = args.input.id
+
+    // check offerId
+    await this.orm.checkIfOfferIDIsUnique(id)
+
+    const response = await this.executor.executeMakeOffer(args)
+
+    // // save to DB
+    await this.orm.postOffer(args)
+
+    return response
   }
 }
 

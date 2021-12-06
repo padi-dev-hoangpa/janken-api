@@ -89,6 +89,36 @@ class Executor {
     }
     return { txHash: response.transactionHash }
   }
+
+  /**
+   * executeMintNFT
+   * @param {Object} args
+   */
+   async executeMakeOffer (args) {
+    const input = args.input
+    const handleMsg = {
+      make_offer: {
+        id: input.id,
+        offeree: input.offeree,
+        offeror_nft_contract: input.offeror_nft_contract,
+        offeror_nft: input.offeror_nft,
+        offeror_code_hash: input.offeror_code_hash,
+        offeree_nft_contract: input.offeree_nft_contract,
+        offeree_nft: input.offeree_nft,
+        offeree_code_hash: input.offeree_code_hash,
+        offeror_hands: input.offeror_hands,
+        offeror_draw_point: input.offeror_draw_point
+      }
+    }
+    this.contractAddress = process.env.JANKEN_CONTRACT
+    let response
+    try {
+      response = await this.execute(handleMsg)
+    } catch (e) {
+      throw new Error(`failed to mint NFT: ${e}`)
+    }
+    return { txHash: response.transactionHash }
+  }
 }
 
 module.exports = {
