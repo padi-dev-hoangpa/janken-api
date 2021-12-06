@@ -20,6 +20,7 @@ class Resolver {
       postMintNFT: this.service.postMintNFT.bind(this.service),
       postUploadImage: this.service.postUploadImage.bind(this.service),
       postMakeOffer: this.service.postMakeOffer.bind(this.service),
+      fetchOffers: this.service.fetchOffers.bind(this.service)
     }
     return resolvers
   }

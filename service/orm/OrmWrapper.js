@@ -1,5 +1,6 @@
 // @ts-check
 const { Nft, Offer } = require('../../models')
+const { Op } = require('sequelize')
 
 /**
  * OrmWrapper
@@ -70,6 +71,7 @@ class OrmWrapper {
   }
 
   /**
+<<<<<<< Updated upstream
    * checkIfIDIsUnique
    * @param {String} offerId
    * @throws {string} id should be unique
@@ -101,12 +103,12 @@ class OrmWrapper {
    * postOffer
    * @param {Object} args
    */
-   async postOffer (args) {
+  async postOffer (args) {
     const input = args.input
     await Offer.create({
       offerId: input.id,
       offeree: input.offeree,
-      status: "REQUEST",
+      status: 'REQUEST',
       offereeNftContract: input.offeror_nft_contract,
       offereeNft: input.offeree_nft,
       offerorNftContract: input.offeror_nft_contract,
@@ -116,6 +118,23 @@ class OrmWrapper {
       winner: ''
     })
       .catch((e) => { throw new Error(`fail to post OFFER: ${e}`) })
+  }
+
+  /**
+   * getOffers
+   * @param {Object} args ex: { address: 'secret...' }
+   */
+  async getOffers (args) {
+    const offers = await Offer.findAll({
+      where: {
+        [Op.or]: [
+          { offeror: args.address },
+          { offeree: args.address }
+        ]
+      }
+    })
+      .catch((e) => { throw new Error(`fail to find offers: ${e}`) })
+    return offers
   }
 }
 
