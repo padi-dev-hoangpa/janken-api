@@ -40,7 +40,7 @@ class ApiService {
    * @param {Object} args
    */
   async postMintNFT (args) {
-    const tokenId = Math.floor(Math.random() * 100).toString()
+    const tokenId = 'snip721-' + Math.floor(Math.random() * 10000).toString()
 
     // check tokenId
     await this.orm.checkIfTokenIDIsUnique(tokenId)
