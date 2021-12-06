@@ -50,6 +50,7 @@ class Executor {
    */
   async execute (handleMsg) {
     const response = await this.client.execute(this.contractAddress, handleMsg)
+      .catch((e) => { throw new Error(`fail to execute Msg: ${e}`) })
     console.log('res:', response)
     return response
   }
@@ -60,6 +61,7 @@ class Executor {
    */
   async query (queryMsg) {
     const response = await this.client.queryContractSmart(this.contractAddress, queryMsg)
+      .catch((e) => { throw new Error(`fail to query Msg: ${e}`) })
     return response
   }
 
@@ -88,6 +90,32 @@ class Executor {
       throw new Error(`failed to mint NFT: ${e}`)
     }
     return { txHash: response.transactionHash }
+  }
+
+  /**
+   * queryTokens
+   * @param {String} owner
+   */
+  async queryTokens (owner) {
+    const queryMsg = {
+      tokens: {
+        owner: owner
+      }
+    }
+    return await this.query(queryMsg)
+  }
+
+  /**
+   * queryAllNftInfo
+   * @param {String} tokenId
+   */
+  async queryAllNftInfo (tokenId) {
+    const queryMsg = {
+      all_nft_info: {
+        token_id: tokenId
+      }
+    }
+    return await this.query(queryMsg)
   }
 
   /**

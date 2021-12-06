@@ -12,6 +12,7 @@ type Mutation {
   postMintNFT(input: MintNFTInput): MintNFTResult
   postMakeOffer(input: OfferInput): MakeOfferResult
   postUploadImage(file: Upload!): File
+  postPollingNFTOwners: Result
 }
 
 ##################################### TYPE ###########################################
@@ -25,6 +26,10 @@ type NFT {
 
 type MintNFTResult {
   txHash: String
+}
+
+type Result {
+  status: String
 }
 
 type MakeOfferResult {

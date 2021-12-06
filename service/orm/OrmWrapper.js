@@ -71,12 +71,39 @@ class OrmWrapper {
   }
 
   /**
-<<<<<<< Updated upstream
+   * getAllNFTOwners
+   */
+  async getAllNFTOwners () {
+    const owners = await Nft.findAll({
+      group: 'owner'
+    })
+      .catch((e) => { throw new Error(`fail to find owners list: ${e}`) })
+
+    return owners
+  }
+
+  /**
+   * updateNFTOwner
+   * @param {String} tokenId
+   * @param {String} owner
+   */
+  async updateNFTOwner (tokenId, owner) {
+    const q = { tokenId: tokenId }
+    const NFT = await this.getNFT(q)
+    if (NFT === null) {
+      throw new Error('this tokenId is not in DB')
+    }
+    NFT.owner = owner
+    await NFT.save()
+      .catch((e) => { throw new Error(`fail to update NFT Owner: ${e}`) })
+  }
+
+  /**
    * checkIfIDIsUnique
    * @param {String} offerId
    * @throws {string} id should be unique
    */
-   async checkIfOfferIDIsUnique (offerId) {
+  async checkIfOfferIDIsUnique (offerId) {
     const q = { offerId: offerId }
     if (await this.getOffer(q) !== null) {
       throw new Error('Id is duplicated.')
