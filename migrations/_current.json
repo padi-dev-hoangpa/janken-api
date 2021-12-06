@@ -1,0 +1,152 @@
+{
+    "tables": {
+        "nfts": {
+            "tableName": "nfts",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "token_id": {
+                    "field": "token_id",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "owner": {
+                    "field": "owner",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "name": {
+                    "field": "name",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "image": {
+                    "field": "image",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "description": {
+                    "field": "description",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "created_at",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updated_at",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": {
+                "84191b776052c6675339d4455490d3d1673d46d1": {
+                    "name": "nfts_onwer_indexes",
+                    "fields": [
+                        "owner"
+                    ],
+                    "options": {
+                        "indexName": "nfts_onwer_indexes",
+                        "name": "nfts_onwer_indexes"
+                    }
+                }
+            }
+        },
+        "offers": {
+            "tableName": "offers",
+            "schema": {
+                "id": {
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "offer_id": {
+                    "field": "offer_id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "status": {
+                    "field": "status",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "offeror": {
+                    "field": "offeror",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "offeror_nft_contract": {
+                    "field": "offeror_nft_contract",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "offeror_nft": {
+                    "field": "offeror_nft",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "offeror_hands": {
+                    "field": "offeror_hands",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "offeree": {
+                    "field": "offeree",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "offeree_nft_contract": {
+                    "field": "offeree_nft_contract",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "offeree_nft": {
+                    "field": "offeree_nft",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "offeree_hands": {
+                    "field": "offeree_hands",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "draw_point": {
+                    "field": "draw_point",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "winner": {
+                    "field": "winner",
+                    "seqType": "Sequelize.STRING(191)"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "created_at",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updated_at",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": {
+                "a483d4823b4382969c349f85725a62344c8d2161": {
+                    "name": "offers_offeror_indexes",
+                    "fields": [
+                        "offeror"
+                    ],
+                    "options": {
+                        "indexName": "offers_offeror_indexes",
+                        "name": "offers_offeror_indexes"
+                    }
+                },
+                "3728ea1c5ce525d19afb573044e523f4cc31dd3e": {
+                    "name": "offers_offeree_indexes",
+                    "fields": [
+                        "offeree"
+                    ],
+                    "options": {
+                        "indexName": "offers_offeree_indexes",
+                        "name": "offers_offeree_indexes"
+                    }
+                }
+            }
+        }
+    },
+    "path": "/home/eg/janken-api/migrations/_current.json",
+    "backupPath": "/home/eg/janken-api/migrations/_current_bak.json",
+    "exists": false,
+    "revision": 1
+}

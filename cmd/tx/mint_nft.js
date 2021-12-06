@@ -1,8 +1,12 @@
 // @ts-check
 const initClient = require('../../client/client')
-const { Executor } = require('../../executor/executor')
+const { Executor } = require('../../service/executor/Executor')
 
-const mintNFT = async () => {
+/**
+ * mintNft
+ * @param {String} owner
+ */
+const mintNft = async (owner) => {
   const client = await initClient()
   const contractAddress = process.env.SECRET_NFT_CONTRACT
 
@@ -12,7 +16,7 @@ const mintNFT = async () => {
   const handleMsg = {
     mint_nft: {
       token_id: tokenID,
-      owner: client.senderAddress,
+      owner: owner,
       public_metadata: {
         extension: {
           image: 'image_url',
@@ -27,4 +31,4 @@ const mintNFT = async () => {
   console.log('response: ', JSON.stringify(response))
 }
 
-mintNFT()
+module.exports = mintNft

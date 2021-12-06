@@ -1,9 +1,9 @@
 scalar Upload
 ##################################### QUERY ##########################################
 type Query {
-  fetchAllNFT: [NFT]
-  fetchOwnerNFT(owner: String): [NFT]
-  fetchUploads: [File]
+  fetchAllNFTs: [NFT]
+  fetchNFT(tokenId: String!): NFT
+  fetchNFTsByOwner(owner: String!): [NFT]
 }
 
 ##################################### MUTATION #######################################

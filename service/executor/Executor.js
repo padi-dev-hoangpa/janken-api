@@ -7,7 +7,7 @@ class Executor {
    * @param {import('secretjs').SigningCosmWasmClient} client
    * @param {string} contractAddress
    */
-  constructor (client, contractAddress) {
+  constructor (client, contractAddress = '') {
     this.client = client
     this.contractAddress = contractAddress
   }
@@ -61,6 +61,33 @@ class Executor {
   async query (queryMsg) {
     const response = await this.client.queryContractSmart(this.contractAddress, queryMsg)
     return response
+  }
+
+  /**
+   * executeMintNFT
+   * @param {Object} args
+   */
+  async executeMintNFT (args) {
+    const handleMsg = {
+      mint_nft: {
+        token_id: args.tokenId,
+        owner: args.input.owner,
+        public_metadata: {
+          extension: {
+            image: args.input.image,
+            name: args.input.name,
+            description: args.input.description
+          }
+        }
+      }
+    }
+    let response
+    try {
+      response = await this.execute(handleMsg)
+    } catch (e) {
+      throw new Error(`failed to mint NFT: ${e}`)
+    }
+    return { txHash: response.transactionHash }
   }
 }
 

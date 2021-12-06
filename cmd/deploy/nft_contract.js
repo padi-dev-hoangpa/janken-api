@@ -1,13 +1,15 @@
 // @ts-check
 const initClient = require('../../client/client')
-const { Executor } = require('../../executor/executor')
+const { Executor } = require('../../service/executor/Executor')
 
-const main = async () => {
+/**
+ * nftDeploy
+ */
+const nftDeploy = async () => {
   const client = await initClient()
-  const contractAddress = process.env.SECRET_NFT_CONTRACT
-  const executor = new Executor(client, contractAddress)
+  const executor = new Executor(client)
 
-  const wasmPATH = './snip721.wasm'
+  const wasmPATH = './wasm/snip721.wasm'
   const initMsg = {
     /// name of token contract
     name: 'aaa',
@@ -27,6 +29,4 @@ const main = async () => {
   await executor.deploy(wasmPATH, initMsg, contractName)
 }
 
-main().catch((err) => {
-  console.error(err)
-})
+module.exports = nftDeploy

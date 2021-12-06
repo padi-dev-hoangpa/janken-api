@@ -4,19 +4,12 @@
   "main": "index.js",
   "scripts": {
     "test": "export NODE_ENV=test; npm run db:drop; npm run db:setup; jest;",
+    "test:mariadb": "export NODE_ENV=test; npm run db:setup; jest;",
     "db:setup": "sequelize-cli db:migrate; sequelize-cli db:seed:all",
     "db:drop": "rm storage/*.sqlite3",
     "dev": " nodemon graphql/index.js",
     "lint": " eslint .",
-    "lint": " eslint .",
-    "db:setup-prod": "sequelize-cli db:migrate --env=production; sequelize-cli db:seed:all --env=production",
-    "d:snip721": "node cmd/deploy/deploy-janken.js",
-    "d:janken": "node cmd/deploy/deploy-nft.js",
-    "q:tokens": "node cmd/query/tokens.js",
-    "q:nftInfo": "node cmd/query/nftInfo.js",
-    "q:allNFTInfo": "node cmd/query/allNFTInfo.js",
-    "tx:mint-nft": "node cmd/tx/mint-nft.js",
-    "tx:transfer-nft": "node cmd/tx/transfer-nft.js"
+    "db:setup-prod": "sequelize-cli db:migrate --env=production; sequelize-cli db:seed:all --env=production"
   },
   "license": "MIT",
   "dependencies": {
@@ -25,6 +18,7 @@
     "@graphql-tools/graphql-file-loader": "^7.1.0",
     "@graphql-tools/load": "^7.3.2",
     "aws-sdk": "^2.1042.0",
+    "commander": "^8.3.0",
     "cors": "^2.8.5",
     "csv": "^5.5.3",
     "dotenv": "^10.0.0",

@@ -11,8 +11,8 @@ const {
 
 const customFees = {
   upload: {
-    amount: [{ amount: '5000000', denom: 'uscrt' }],
-    gas: '5000000'
+    amount: [{ amount: '10000000', denom: 'uscrt' }],
+    gas: '10000000'
   },
   init: {
     amount: [{ amount: '500000', denom: 'uscrt' }],
@@ -58,6 +58,7 @@ const initClient = async () => {
     txEncryptionSeed,
     customFees
   )
+  console.log('client account: ', client.senderAddress)
   return client
 }
 

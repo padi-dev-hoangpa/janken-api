@@ -1,18 +1,32 @@
 // @ts-check
-const { Executor } = require('../executor/executor')
 const s3AvatarUploader = require('../graphql/s3')
 
 /**
  * ApiService
- * @extends Executor
  */
-class ApiService extends Executor {
+class ApiService {
+  /**
+   * @constructor
+   * @param {import('./executor/Executor').Executor} executor
+   * @param {import('./orm/OrmWrapper').OrmWrapper} orm
+   */
+  constructor (executor = null, orm) {
+    this.executor = executor
+    this.orm = orm
+  }
+
+  /**
+   * postUploadImage
+   * @param {Object} args
+   */
   async postUploadImage (args) {
     const { createReadStream, filename, mimetype, encoding } = await args.file.file
     const uri = await s3AvatarUploader.upload(createReadStream(), {
       filename,
       mimetype
     })
+      .catch((e) => { throw new Error(`fail to upload image: ${e}`) })
+
     return {
       filename,
       mimetype,
@@ -26,38 +40,42 @@ class ApiService extends Executor {
    * @param {Object} args
    */
   async postMintNFT (args) {
-    const tokenID = Math.floor(Math.random() * 100)
+    const tokenId = Math.floor(Math.random() * 100).toString()
 
-    const handleMsg = {
-      mint_nft: {
-        token_id: tokenID.toString(),
-        owner: args.input.owner,
-        public_metadata: {
-          extension: {
-            image: args.input.image,
-            name: args.input.name,
-            description: args.input.description
-          }
-        }
-      }
-    }
+    // check tokenId
+    await this.orm.checkIfTokenIDIsUnique(tokenId)
 
-    // TODO: add error handling
-    const result = await super.execute(handleMsg)
-    return { txHash: result.transactionHash }
+    args.tokenId = tokenId
+
+    const response = await this.executor.executeMintNFT(args)
+
+    // save to DB
+    await this.orm.postNFT(args)
+
+    return response
   }
 
   /**
-   * fetchAllNFT
+   * fetchAllNFTs
    */
-  async fetchAllNFT () {
-    return [{
-      token_id: '1',
-      owner: 'aaa',
-      image: 'aaa',
-      name: 'aaa',
-      description: 'aaa'
-    }]
+  async fetchAllNFTs () {
+    return await this.orm.getNFTs()
+  }
+
+  /**
+   * fetchNFT
+   * @param {Object} args
+   */
+  async fetchNFT (args) {
+    return await this.orm.getNFT(args)
+  }
+
+  /**
+   * fetchNFTsByOwner
+   * @param {Object} args
+   */
+  async fetchNFTsByOwner (args) {
+    return await this.orm.getNFTsByOwner(args)
   }
 
   async fetchOwnerNFT(address) {
