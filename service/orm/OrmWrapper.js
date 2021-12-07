@@ -152,13 +152,13 @@ class OrmWrapper {
    * @param {Object} args ex: { address: 'secret...' }
    */
   async getOffers (args) {
-    let query = {
-      status: "REQUEST"
+    const query = {
+      status: 'REQUEST'
     }
     if (args.type === 'SEND') {
-      query["offeror"] = args.address
+      query.offeror = args.address
     } else if (args.type === 'RECEIVE') {
-      query["offeree"] = args.address
+      query.offeree = args.address
     }
 
     const offers = await Offer.findAll({
@@ -172,11 +172,13 @@ class OrmWrapper {
   /**
    * getBattles
    */
-   async getBattles (args) {
+  async getBattles (args) {
     const offers = await Offer.findAll(
       {
         where: {
-          status:  { $not: 'REQUEST'},
+          [Op.not]: [
+            { status: 'REQUEST' }
+          ],
           [Op.or]: [
             { offeror: args.address },
             { offeree: args.address }

@@ -14,7 +14,7 @@ describe('API Service', () => {
 
     expect(offers.length).toBe(1)
     expect(offers[0].offerId).toBe(1)
-    expect(offers[0].status).toBe('Offered')
+    expect(offers[0].status).toBe('REQUEST')
     expect(offers[0].winner).toBe('')
   })
 
@@ -27,7 +27,7 @@ describe('API Service', () => {
 
     expect(offers.length).toBe(1)
     expect(offers[0].offerId).toBe(2)
-    expect(offers[0].status).toBe('Offered')
+    expect(offers[0].status).toBe('REQUEST')
     expect(offers[0].winner).toBe('')
   })
 })
