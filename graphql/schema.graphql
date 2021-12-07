@@ -39,13 +39,9 @@ type MakeOfferResult {
 type Offer {
   offerId: Int!
   status: String,
-  offeror: String,
-  offerorNftContract: String,
-  offerorNft: String,
+  offerorNFT: NFT,
+  offereeNFT: NFT,
   offerorHands: [Int!],
-  offeree: String,
-  offereeNftContract: String,
-  offereeNft: String,
   offereeHands: [Int!],
   drawPoint: Int,
   winner: String

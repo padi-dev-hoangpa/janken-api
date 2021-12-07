@@ -3,6 +3,7 @@
 const acceptOffer = require('./accept_offer')
 const approve = require('./approve')
 const declineOffer = require('./decline_offer')
+const generateViewingKey = require('./generate_viewing_key')
 const makeOffer = require('./make_offer')
 const mintNft = require('./mint_nft')
 const setViewingKey = require('./set_viewing_key')
@@ -42,6 +43,13 @@ function makeTxCommand () {
     .action((id) => {
       console.log('===tx decline_offer===')
       declineOffer(id).catch((e) => { console.log(e) })
+    })
+
+  tx
+    .command('generate_viewing_key')
+    .action(() => {
+      console.log('===tx generate_viewing_key===')
+      generateViewingKey().catch((e) => { console.log(e) })
     })
 
   tx
