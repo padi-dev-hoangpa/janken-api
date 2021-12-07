@@ -170,6 +170,24 @@ class OrmWrapper {
   }
 
   /**
+   * getBattles
+   */
+   async getBattles () {
+    let query = {
+      status:  { $not: 'REQUEST'}
+    }
+
+    const offers = await Offer.findAll(
+      {
+        where: query
+      }
+    )
+      .catch((e) => { throw new Error(`fail to find battles: ${e}`) })
+
+    return offers
+  }
+
+  /**
    * updateOffer
    * @param {Object} offer
    */
