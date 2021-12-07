@@ -192,6 +192,29 @@ class ApiService {
 
     return offerResponse
   }
+
+  async fetchBattles () {
+    const offers = await this.orm.getBattles()
+
+    const offerResponse = []
+    for (const offer of offers) {
+      const offerorNFT = await this.orm.getNFT({ tokenId: offer.offerorNft })
+      const offereeNFT = await this.orm.getNFT({ tokenId: offer.offereeNft })
+
+      const res = new OfferResponse(offer.offerId)
+        .setStatus(offer.status)
+        .setOfferorNFT(offerorNFT)
+        .setOffereeNFT(offereeNFT)
+        .setOfferorHands(JSON.parse(offer.offerorHands))
+        .setOffereeHands(JSON.parse(offer.offereeHands))
+        .setDrawPoint(offer.drawPoint)
+        .setWinner(offer.winner)
+
+      offerResponse.push(res)
+    }
+
+    return offerResponse
+  }
 }
 
 module.exports = ApiService
