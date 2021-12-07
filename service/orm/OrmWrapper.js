@@ -153,15 +153,16 @@ class OrmWrapper {
    */
   async getOffers (args) {
     let query = {}
-    if(args.type == "SEND"){
+    if (args.type === 'SEND') {
       query = {
         offeror: args.address
       }
-    } else if(args.type == "RECEIVE") {
+    } else if (args.type === 'RECEIVE') {
       query = {
         offeree: args.address
       }
     }
+
     const offers = await Offer.findAll({
       where: query
     })

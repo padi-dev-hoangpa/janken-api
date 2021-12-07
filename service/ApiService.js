@@ -175,7 +175,6 @@ class ApiService {
 
     const offerResponse = []
     for (const offer of offers) {
-      console.log('okL:', offer)
       const offerorNFT = await this.orm.getNFT({ tokenId: offer.offerorNft })
       const offereeNFT = await this.orm.getNFT({ tokenId: offer.offereeNft })
 
