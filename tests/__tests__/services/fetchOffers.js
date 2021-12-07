@@ -2,7 +2,7 @@ const ApiService = require('../../../service/ApiService')
 const { OrmWrapper } = require('../../../service/orm/OrmWrapper')
 
 const orm = new OrmWrapper()
-const service = new ApiService(null, orm)
+const service = new ApiService(null, null, orm)
 
 describe('API Service', () => {
   test('fetchOffers()', async () => {
