@@ -2,7 +2,7 @@
 
 ## System Architecture
 <p align="center">
-  <img src="./architecture.png" width="600">
+  <img src="./architechture.png" width="600">
 </p>
 
 ## Interact with CLI
