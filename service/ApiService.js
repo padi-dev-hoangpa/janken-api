@@ -193,8 +193,8 @@ class ApiService {
     return offerResponse
   }
 
-  async fetchBattles () {
-    const offers = await this.orm.getBattles()
+  async fetchBattles (args) {
+    const offers = await this.orm.getBattles(args)
 
     const offerResponse = []
     for (const offer of offers) {
