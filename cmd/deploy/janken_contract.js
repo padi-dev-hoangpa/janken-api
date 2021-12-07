@@ -10,7 +10,9 @@ const jankenDeploy = async () => {
   const executor = new Executor(client)
 
   const wasmPATH = './wasm/janken.wasm'
-  const initMsg = {}
+  const initMsg = {
+    prng_seed: 'prng_seed'
+  }
   const contractName = `My Janken${Math.ceil(Math.random() * 10000)}`
 
   await executor.deploy(wasmPATH, initMsg, contractName)
