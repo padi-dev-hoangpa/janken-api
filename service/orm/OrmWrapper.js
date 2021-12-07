@@ -141,7 +141,7 @@ class OrmWrapper {
       offereeNft: input.offereeNFTTokenId,
       offerorNftContract: process.env.SECRET_NFT_CONTRACT,
       offerorNft: input.offerorNFTTokenId,
-      offereeHands: JSON.stringify(input.offerorHands),
+      offerorHands: JSON.stringify(input.offerorHands),
       drawPoint: input.drawPoint,
       winner: ''
     })

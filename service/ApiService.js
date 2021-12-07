@@ -182,7 +182,7 @@ class ApiService {
       const res = new OfferResponse(offer.offerId)
         .setStatus(offer.status)
         .setOfferorNFT(offerorNFT)
-        .setOfferorNFT(offereeNFT)
+        .setOffereeNFT(offereeNFT)
         .setOfferorHands(JSON.parse(offer.offerorHands))
         .setOffereeHands(JSON.parse(offer.offereeHands))
         .setDrawPoint(offer.drawPoint)
