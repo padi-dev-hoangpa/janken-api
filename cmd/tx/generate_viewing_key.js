@@ -3,24 +3,21 @@ const initClient = require('../../client/client')
 const { Executor } = require('../../service/executor/Executor')
 
 /**
- * offer
- * @param {Number} id
+ * generateViewingKey
  */
-const offer = async (id) => {
+const generateViewingKey = async () => {
   const client = await initClient()
   const contractAddress = process.env.JANKEN_CONTRACT
 
   const executor = new Executor(client, contractAddress)
 
-  const queryMsg = {
-    offer: {
-      id: id,
-      address: client.senderAddress,
-      viewing_key: 'your viewing key'
+  const handleMsg = {
+    generate_viewing_key: {
+      entropy: 'entropy_source'
     }
   }
-  const response = await executor.query(queryMsg)
+  const response = await executor.execute(handleMsg)
   console.log('response: ', JSON.stringify(response))
 }
 
-module.exports = offer
+module.exports = generateViewingKey
