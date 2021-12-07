@@ -9,7 +9,7 @@ const Service = require('../service/ApiService.js')
 const initClient = require('../client/client')
 const { Executor } = require('../service/executor/Executor')
 const { OrmWrapper } = require('../service/orm/OrmWrapper')
-const contractAddress = process.env.SECRET_NFT_CONTRACT
+const contractAddress = process.env.JANKEN_CONTRACT
 
 const { graphqlUploadExpress } = require('graphql-upload')
 

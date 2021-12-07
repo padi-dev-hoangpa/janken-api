@@ -122,7 +122,6 @@ class OrmWrapper {
     })
       .catch((e) => { throw new Error(`fail to find offer: ${e}`) })
 
-    console.log(OFFER)
     return OFFER
   }
 
@@ -132,16 +131,18 @@ class OrmWrapper {
    */
   async postOffer (args) {
     const input = args.input
+    console.log(input)
     await Offer.create({
-      offerId: input.id,
+      offerId: input.offerId,
+      offeror: input.offeror,
       offeree: input.offeree,
       status: 'REQUEST',
-      offereeNftContract: input.offeror_nft_contract,
-      offereeNft: input.offeree_nft,
-      offerorNftContract: input.offeror_nft_contract,
-      offerorNft: input.offeror_nft,
-      offereeHands: JSON.stringify(args.offeror_hands),
-      drawPoint: input.offeror_draw_point,
+      offereeNftContract: process.env.SECRET_NFT_CONTRACT,
+      offereeNft: input.offereeNFTTokenId,
+      offerorNftContract: process.env.SECRET_NFT_CONTRACT,
+      offerorNft: input.offerorNFTTokenId,
+      offereeHands: JSON.stringify(input.offerorHands),
+      drawPoint: input.drawPoint,
       winner: ''
     })
       .catch((e) => { throw new Error(`fail to post OFFER: ${e}`) })
@@ -163,6 +164,15 @@ class OrmWrapper {
       .catch((e) => { throw new Error(`fail to find offers: ${e}`) })
 
     return offers
+  }
+
+  /**
+   * updateOffer
+   * @param {Object} offer
+   */
+  async updateOffer (offer) {
+    await offer.save()
+      .catch((e) => { throw new Error(`fail to update Offer: ${e}`) })
   }
 }
 
