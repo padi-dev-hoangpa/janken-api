@@ -14,7 +14,8 @@ const offer = async (id) => {
 
   const queryMsg = {
     offer: {
-      id: id
+      id: id,
+      address: client.senderAddress
     }
   }
   const response = await executor.query(queryMsg)
