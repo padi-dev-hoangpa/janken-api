@@ -4,7 +4,7 @@ type Query {
   fetchAllNFTs: [NFT]
   fetchNFT(tokenId: String!): NFT
   fetchNFTsByOwner(owner: String!): [NFT]
-  fetchOffers(address: String!): [Offer]
+  fetchOffers(address: String!, type: String!): [Offer]
 }
 
 ##################################### MUTATION #######################################
