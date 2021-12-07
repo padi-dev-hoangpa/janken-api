@@ -11,11 +11,13 @@ const OfferResponse = require('./types/OfferResponse')
 class ApiService {
   /**
    * @constructor
-   * @param {import('./executor/Executor').Executor} executor
+   * @param {import('./executor/JankenExecutor').JankenExecutor} jankenExecutor
+   * @param {import('./executor/SNIP721Executor').SNIP721Executor} snip721Executor
    * @param {import('./orm/OrmWrapper').OrmWrapper} orm
    */
-  constructor (executor = null, orm) {
-    this.executor = executor
+  constructor (jankenExecutor = null, snip721Executor = null, orm) {
+    this.jankenExecutor = jankenExecutor
+    this.snip721Executor = snip721Executor
     this.orm = orm
   }
 
@@ -51,7 +53,7 @@ class ApiService {
 
     args.tokenId = tokenId
 
-    const response = await this.executor.executeMintNFT(args)
+    const response = await this.snip721Executor.executeMintNFT(args)
 
     // save to DB
     await this.orm.postNFT(args)
@@ -97,14 +99,14 @@ class ApiService {
       const tokenIdsFromDB = NFTsInDB.map(value => value.tokenId)
       console.log(tokenIdsFromDB)
 
-      const NFTsFromContract = await this.executor.queryTokens(owner)
+      const NFTsFromContract = await this.snip721Executor.queryTokens(owner)
       const tokenIdsFromContract = NFTsFromContract.token_list.tokens
 
       const diffNFTs = getArraysDiff(tokenIdsFromDB, tokenIdsFromContract)
       console.log('diff: ', diffNFTs)
       for (const tokenId of diffNFTs) {
         try {
-          const res = await this.executor.queryAllNftInfo(tokenId)
+          const res = await this.snip721Executor.queryAllNftInfo(tokenId)
           console.log(res)
 
           const owner = res.all_nft_info.access.owner
@@ -140,7 +142,7 @@ class ApiService {
     const offerId = args.input.offerId
     const offer = await this.orm.getOffer({ offerId: offerId })
 
-    const response = await this.executor.queryOffer(offer.offerId)
+    const response = await this.jankenExecutor.queryOffer(offer.offerId)
     offer.offereeHands = JSON.stringify(args.input.offerorHands)
     offer.status = response.status
 
@@ -156,7 +158,7 @@ class ApiService {
     const offerId = args.input.offerId
     const offer = await this.orm.getOffer({ offerId: offerId })
 
-    const response = await this.executor.queryOffer(offer.offerId)
+    const response = await this.jankenExecutor.queryOffer(offer.offerId)
     offer.status = response.status
 
     await this.orm.updateOffer(offer)
