@@ -131,7 +131,6 @@ class OrmWrapper {
    */
   async postOffer (args) {
     const input = args.input
-    console.log(input)
     await Offer.create({
       offerId: input.offerId,
       offeror: input.offeror,
@@ -153,13 +152,18 @@ class OrmWrapper {
    * @param {Object} args ex: { address: 'secret...' }
    */
   async getOffers (args) {
-    const offers = await Offer.findAll({
-      where: {
-        [Op.or]: [
-          { offeror: args.address },
-          { offeree: args.address }
-        ]
+    let query = {}
+    if(args.type == "SEND"){
+      query = {
+        offeror: args.address
       }
+    } else if(args.type == "RECEIVE") {
+      query = {
+        offeree: args.address
+      }
+    }
+    const offers = await Offer.findAll({
+      where: query
     })
       .catch((e) => { throw new Error(`fail to find offers: ${e}`) })
 
