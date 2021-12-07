@@ -11,6 +11,10 @@ module.exports = {
         PORT: 4001,
         NODE_ENV: 'production'
       }
+    },
+    {
+      name: 'Watch NFT Owner',
+      script: './cmd/watch.js'
     }
   ]
 }
