@@ -7,17 +7,20 @@ const schema = require('./schema')
 const Resolver = require('./Resolver')
 const Service = require('../service/ApiService.js')
 const initClient = require('../client/client')
-const { Executor } = require('../service/executor/Executor')
+const { JankenExecutor } = require('../service/executor/JankenExecutor')
+const { SNIP721Executor } = require('../service/executor/SNIP721Executor')
 const { OrmWrapper } = require('../service/orm/OrmWrapper')
-const contractAddress = process.env.JANKEN_CONTRACT
+const jankenContractAddress = process.env.JANKEN_CONTRACT
+const snip721ContractAddress = process.env.SECRET_NFT_CONTRACT
 
 const { graphqlUploadExpress } = require('graphql-upload')
 
 const main = async () => {
   const client = await initClient()
-  const executor = new Executor(client, contractAddress)
+  const jankenExecutor = new JankenExecutor(client, jankenContractAddress)
+  const snip721Executor = new SNIP721Executor(client, snip721ContractAddress)
   const orm = new OrmWrapper()
-  const service = new Service(executor, orm)
+  const service = new Service(jankenExecutor, snip721Executor, orm)
   const resolver = new Resolver(service).init()
 
   // Create an express server and a GraphQL endpoint
