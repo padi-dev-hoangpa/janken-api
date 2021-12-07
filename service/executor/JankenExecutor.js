@@ -11,7 +11,7 @@ class JankenExecutor extends Executor {
     const queryMsg = {
       offer: {
         id: offerId,
-        address: super.client.senderAddress
+        address: this.client.senderAddress
       }
     }
     console.log(queryMsg)
