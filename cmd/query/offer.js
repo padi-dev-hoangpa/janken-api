@@ -15,8 +15,7 @@ const offer = async (id) => {
   const queryMsg = {
     offer: {
       id: id,
-      address: client.senderAddress,
-      viewing_key: 'your viewing key'
+      address: client.senderAddress
     }
   }
   const response = await executor.query(queryMsg)
