@@ -121,17 +121,47 @@ class ApiService {
   }
 
   async postMakeOffer (args) {
-    const id = args.input.id
+    const id = args.input.offerId
 
     // check offerId
     await this.orm.checkIfOfferIDIsUnique(id)
 
-    const response = await this.executor.executeMakeOffer(args)
-
     // // save to DB
     await this.orm.postOffer(args)
 
-    return response
+    return { status: 'ok' }
+  }
+
+  /**
+   * postAcceptOffer
+   * @param {Object} args
+   */
+  async postAcceptOffer (args) {
+    const offerId = args.input.offerId
+    const offer = await this.orm.getOffer({ offerId: offerId })
+
+    const response = await this.executor.queryOffer(offer.offerId)
+    offer.offereeHands = JSON.stringify(args.input.offerorHands)
+    offer.status = response.status
+
+    await this.orm.updateOffer(offer)
+    return { status: 'ok' }
+  }
+
+  /**
+   * postDeclineOffer
+   * @param {Object} args
+   */
+  async postDeclineOffer (args) {
+    const offerId = args.input.offerId
+    const offer = await this.orm.getOffer({ offerId: offerId })
+
+    const response = await this.executor.queryOffer(offer.offerId)
+    offer.status = response.status
+
+    await this.orm.updateOffer(offer)
+
+    return { status: 'ok' }
   }
 
   /**
