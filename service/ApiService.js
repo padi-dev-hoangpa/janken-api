@@ -143,7 +143,7 @@ class ApiService {
     const offer = await this.orm.getOffer({ offerId: offerId })
 
     const response = await this.jankenExecutor.queryOffer(offer.offerId)
-    offer.offereeHands = JSON.stringify(args.input.offerorHands)
+    offer.offereeHands = JSON.stringify(args.input.offereeHands)
     offer.status = response.status
 
     await this.orm.updateOffer(offer)
