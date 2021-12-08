@@ -145,6 +145,7 @@ class ApiService {
     const response = await this.jankenExecutor.queryOffer(offer.offerId)
     offer.offereeHands = JSON.stringify(args.input.offereeHands)
     offer.status = response.status
+    offer.winner = response.winner === 'offeror' ? response.offeror : response.offeree
 
     await this.orm.updateOffer(offer)
     return { status: 'ok' }
